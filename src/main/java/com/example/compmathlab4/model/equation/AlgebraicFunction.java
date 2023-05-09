@@ -57,15 +57,15 @@ public class AlgebraicFunction extends AbstractFunction {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (int coefficientNumber = 0; coefficientNumber < rank + 1; coefficientNumber++) {
-            if (coefficients.get(coefficientNumber) > 0) {
+            if (coefficients.get(coefficientNumber) >= 0) {
                 builder.append(" + ");
             } else {
                 if (coefficients.get(coefficientNumber) != 0) builder.append(" - ");
 
             }
             switch (String.valueOf(Math.abs(coefficients.get(coefficientNumber)))) {
-                case "0.0":
-                    break;
+//                case "0.0":
+//                    break;
                 case "1.0":
                     if (rank - coefficientNumber == 0) builder.append(Math.abs(coefficients.get(coefficientNumber)));
                     break;
@@ -74,14 +74,12 @@ public class AlgebraicFunction extends AbstractFunction {
                     if (rank - coefficientNumber > 0) builder.append("*");
 
             }
-            if (coefficients.get(coefficientNumber) != 0) {
-                if (rank - coefficientNumber > 0) {
-                    builder.append("x");
-                    if (rank - coefficientNumber != 1) {
-                        builder.append("^").append(rank - coefficientNumber);
-                    }
-
+            if (rank - coefficientNumber > 0) {
+                builder.append("x");
+                if (rank - coefficientNumber != 1) {
+                    builder.append("^").append(rank - coefficientNumber);
                 }
+
             }
 
 

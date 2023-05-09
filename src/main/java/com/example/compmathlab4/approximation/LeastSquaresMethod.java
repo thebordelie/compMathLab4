@@ -5,13 +5,11 @@ import com.example.compmathlab4.model.TableOfValues;
 import com.example.compmathlab4.model.equation.AlgebraicFunction;
 import com.example.compmathlab4.model.equation.Equation;
 import com.example.compmathlab4.service.TableHandler;
-import com.example.compmathlab4.service.TableHandlerImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 
 import java.util.ArrayList;
 
-abstract public class LeastSquaresMethod extends AbstractApproximation {
+public class LeastSquaresMethod extends AbstractApproximation {
     private TableHandler tableHandler;
     private int type;
 

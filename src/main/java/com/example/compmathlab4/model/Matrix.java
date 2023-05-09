@@ -23,6 +23,7 @@ public class Matrix {
 
         }
         line2.setRightValue(line2.getRightValue()+line1.getRightValue());
+
     }
 
     public Line multiplyLine(int lineNumber, double value) {

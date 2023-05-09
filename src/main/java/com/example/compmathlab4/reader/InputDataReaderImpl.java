@@ -20,9 +20,10 @@ public class InputDataReaderImpl implements InputDataReader<TableOfValues> {
     private TableOfValues getDataFromConsole(InputStreamReader inputStreamReader) {
         BufferedReader reader = new BufferedReader(inputStreamReader);
         while (true) {
-            System.out.println("Введите количество опытов");
+            System.out.println("Введите количество опытов ( 8- 12 тестов )");
             try {
                 int numberOfTests = Integer.parseInt(reader.readLine());
+                if (numberOfTests < 8 || numberOfTests > 12) throw new NumberFormatException();
                 Double[] xValues = new Double[numberOfTests];
                 Double[] yValues = new Double[numberOfTests];
                 System.out.println("Введите " + numberOfTests + " значений для x (через пробел)");
@@ -41,8 +42,7 @@ public class InputDataReaderImpl implements InputDataReader<TableOfValues> {
             } catch (IOException e) {
                 System.err.println("Ошибка при выполнении");
                 break;
-            } catch (NumberFormatException exception) {
-                System.err.println("Неправильный формат данных");
+            } catch (NumberFormatException ignored) {
             }
 
         }
@@ -53,20 +53,21 @@ public class InputDataReaderImpl implements InputDataReader<TableOfValues> {
         BufferedReader reader = new BufferedReader(inputStreamReader);
         try {
             int numberOfTests = Integer.parseInt(reader.readLine());
+            if (numberOfTests < 8 || numberOfTests > 12) throw new NumberFormatException("Недостаточно опытов");
             Double[] xValues;
             Double[] yValues;
             String[] xValuesString = reader.readLine().split(" ");
-            if (xValuesString.length != numberOfTests) throw new NumberFormatException();
-            xValues = Arrays.stream(xValuesString).map(value->Double.parseDouble(value.replaceAll(",","."))).toArray(Double[]::new);
+            if (xValuesString.length != numberOfTests) throw new NumberFormatException("Количество x недостаточно");
+            xValues = Arrays.stream(xValuesString).map(value -> Double.parseDouble(value.replaceAll(",", "."))).toArray(Double[]::new);
             String[] yValuesString = reader.readLine().split(" ");
-            if (yValuesString.length != numberOfTests) throw new NumberFormatException();
-            yValues = Arrays.stream(yValuesString).map(value->Double.parseDouble(value.replaceAll(",","."))).toArray(Double[]::new);
+            if (yValuesString.length != numberOfTests) throw new NumberFormatException("Количество y недостаточно");
+            yValues = Arrays.stream(yValuesString).map(value -> Double.parseDouble(value.replaceAll(",", "."))).toArray(Double[]::new);
             return new TableOfValues(xValues, yValues, numberOfTests);
 
         } catch (IOException e) {
             System.err.println("Ошибка при выполнении");
         } catch (NumberFormatException e) {
-            System.err.println();
+            System.out.println(e.getMessage());
         }
 
         return null;

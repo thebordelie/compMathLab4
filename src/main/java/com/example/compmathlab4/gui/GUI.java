@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class GUI extends AbstractGUI<TableOfValues, ArrayList<Equation>> {
@@ -46,6 +49,9 @@ public class GUI extends AbstractGUI<TableOfValues, ArrayList<Equation>> {
                     default:
                         throw new NumberFormatException();
                 }
+                Set<Double> xSet = new HashSet<>(table.getXValues());
+                Set<Double> ySet = new HashSet<>(table.getXValues());
+                if (table.getTableSize() != xSet.size() || table.getTableSize() != ySet.size()) throw new NumberFormatException();
                 break;
             } catch (FileNotFoundException e) {
                 System.err.println("Данного файла не существует");
